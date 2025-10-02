@@ -37,10 +37,10 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
     新客限定｜轉出你的專屬優惠
   </p>
 
-  <div class="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto mb-10">
+  <div class="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto mb-6">
     <!-- 旋轉光圈 -->
     <div class="absolute inset-0 animate-rotate-lights rounded-full" style="background:conic-gradient(#A9CCE3 0deg 30deg, transparent 30deg 60deg, #EAF2F8 60deg 90deg, transparent 90deg 120deg, #A9CCE3 120deg 150deg, transparent 150deg 180deg, #EAF2F8 180deg 210deg, transparent 210deg 240deg, #A9CCE3 240deg 270deg, transparent 270deg 300deg, #EAF2F8 300deg 330deg, transparent 330deg 360deg); opacity:0.6;"></div>
-    
+
     <!-- 指針 -->
     <div class="absolute w-0 h-0 top-[-20px] left-1/2 -translate-x-1/2 border-l-[20px] border-r-[20px] border-t-[35px] border-l-transparent border-r-transparent border-t-slate-400 z-20 drop-shadow-lg">
       <div class="absolute w-0 h-0 top-[-33px] left-[-16px] border-l-[16px] border-r-[16px] border-t-[28px] border-l-transparent border-r-transparent border-t-slate-500"></div>
@@ -56,6 +56,11 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
       </button>
     </div>
   </div>
+
+  <!-- 「馬上領取新客專屬好康！」按鈕 -->
+  <button id="specialButton" class="w-full max-w-xs bg-gradient-to-r from-slate-600 to-slate-800 text-white font-bold text-xl py-4 px-8 rounded-full shadow-lg shadow-slate-500/40 transition-all duration-300 hover:-translate-y-1 mt-4">
+    馬上領取新客專屬好康！
+  </button>
 
   <div id="resultContainer"></div>
 
@@ -74,6 +79,7 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
 </div>
 
 <script>
+// 抽獎資料
 const PRIZES = [
   { name: '現折<br>30元', code: 'NEW30T', probability: 15, sectionIndex: 0, gradient: 'linear-gradient(135deg, #D3E5F2 0%, #A4C9E8 100%)' },
   { name: '現折<br>50元', code: 'NEW50F', probability: 25, sectionIndex: 1, gradient: 'linear-gradient(135deg, #B9D7EA 0%, #769FCD 100%)' },
@@ -86,6 +92,7 @@ let rotation = 0;
 let isSpinning = false;
 let spunPrize = localStorage.getItem('simplism_lottery_result') ? JSON.parse(localStorage.getItem('simplism_lottery_result')) : null;
 
+// render轉盤
 function renderWheel() {
   const wheel = document.getElementById('wheel');
   wheel.innerHTML = '';
@@ -101,6 +108,7 @@ function renderWheel() {
 }
 renderWheel();
 
+// 抽獎
 function getRandomPrize(){
   const random=Math.random()*100;
   let cumulative=0;
@@ -133,6 +141,7 @@ function spinWheel(){
   },4000);
 }
 
+// 顯示抽獎結果
 function showResult(){
   const container=document.getElementById('resultContainer');
   if(!spunPrize) return;
@@ -140,25 +149,27 @@ function showResult(){
     <div class="mt-6 p-6 bg-[#6380A6] rounded-2xl text-white shadow-lg shadow-blue-500/40 border-2 border-white/50 animate-slide-up">
       <h2 class="text-xl font-bold mb-3">恭喜獲得 ${spunPrize.name.replace('<br>','')}！</h2>
       <div class="relative">
-        <div id="codeBox" class="text-2xl font-black bg-white/25 py-3 px-6 rounded-lg my-3 tracking-widest cursor-pointer border-2 border-white/50">${spunPrize.code}</div>
-        <div id="copySuccess" class="hidden absolute -top-8 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-md">已複製！</div>
+        <div id="copyCode" class="text-2xl font-black bg-white/25 py-3 px-6 rounded-lg my-3 tracking-widest cursor-pointer transition-all duration-300 hover:bg-white/40 hover:scale-105 border-2 border-white/50">
+          ${spunPrize.code}
+        </div>
       </div>
       <p class="text-xs opacity-90">點擊文字框即可複製活動字串 ( 截圖保存以免忘記！ )</p>
       <p class="text-sm mt-1 mb-4">請至結帳頁面『活動字串』貼上使用</p>
-      <a href="https://www.simplism.com.tw/products/product/" target="_blank" class="inline-block bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105 hover:-translate-y-0.5">立即前往購物</a>
+      <a href="https://www.simplism.com.tw/products/product/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105 hover:-translate-y-0.5">
+        立即前往購物
+      </a>
     </div>
   `;
-  const codeBox=document.getElementById('codeBox');
-  const copySuccess=document.getElementById('copySuccess');
-  codeBox.addEventListener('click',()=>{
-    navigator.clipboard.writeText(spunPrize.code);
-    copySuccess.classList.remove('hidden');
-    setTimeout(()=>copySuccess.classList.add('hidden'),2000);
-  });
+  document.getElementById('copyCode').onclick=()=>{navigator.clipboard.writeText(spunPrize.code).then(()=>alert('已複製！'));};
 }
 
-document.getElementById('spinButton').addEventListener('click',spinWheel);
+// 綁定按鈕
+document.getElementById('spinButton').onclick=spinWheel;
+document.getElementById('specialButton').onclick=spinWheel;
+
+// 如果已經抽過則顯示結果
 if(spunPrize) showResult();
 </script>
+
 </body>
 </html>
