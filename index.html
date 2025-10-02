@@ -19,27 +19,24 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
 </head>
 <body class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
 
-<!-- 浮動背景 -->
 <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
   <div class="absolute w-20 h-20 bg-gradient-to-r from-blue-300 to-blue-400 top-[10%] left-[10%] rounded-full opacity-10 animate-float" style="animation-delay:0s;"></div>
   <div class="absolute w-16 h-16 bg-gradient-to-r from-sky-300 to-cyan-300 top-[20%] right-[15%] rounded-full opacity-10 animate-float" style="animation-delay:2s;"></div>
   <div class="absolute w-24 h-24 bg-gradient-to-r from-blue-400 to-indigo-400 bottom-[15%] left-[20%] rounded-full opacity-10 animate-float" style="animation-delay:4s;"></div>
 </div>
 
-<!-- 轉盤容器 -->
 <div class="max-w-xl w-full bg-white/95 rounded-3xl shadow-2xl shadow-blue-200 p-6 sm:p-10 text-center relative z-10 backdrop-blur-sm border-2 border-blue-200/30">
   <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-sky-400 to-slate-400 rounded-t-3xl"></div>
   <h1 class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent mb-2 tracking-wide">Simplism簡單保養</h1>
   <p class="inline-block text-lg md:text-xl text-slate-600 mt-4 mb-12 font-semibold bg-[#ECF5FC] px-8 py-2 rounded-full shadow-md">新客限定｜轉出你的專屬優惠</p>
 
-  <!-- 轉盤 -->
-  <div class="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto mb-6">
+  <div class="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto mb-10">
     <div class="absolute inset-0 animate-rotate-lights rounded-full" style="background:conic-gradient(#A9CCE3 0deg 30deg, transparent 30deg 60deg, #EAF2F8 60deg 90deg, transparent 90deg 120deg, #A9CCE3 120deg 150deg, transparent 150deg 180deg, #EAF2F8 180deg 210deg, transparent 210deg 240deg, #A9CCE3 240deg 270deg, transparent 270deg 300deg, #EAF2F8 300deg 330deg, transparent 330deg 360deg);opacity:0.6;"></div>
-
     <div class="absolute w-0 h-0 top-[-20px] left-1/2 -translate-x-1/2 border-l-[20px] border-r-[20px] border-t-[35px] border-l-transparent border-r-transparent border-t-slate-400 z-20 drop-shadow-lg"></div>
 
     <div class="absolute top-2 left-2 w-[calc(100%-16px)] h-[calc(100%-16px)] rounded-full bg-gradient-to-b from-slate-300 to-slate-400 p-1.5 shadow-lg shadow-slate-500/30">
       <div id="wheel" class="w-full h-full rounded-full relative overflow-hidden bg-white shadow-inner transition-transform duration-[4000ms] ease-[cubic-bezier(0.23,1,0.32,1)]"></div>
+      <button id="spinButton" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-slate-500 to-slate-700 rounded-full flex items-center justify-center text-sm font-extrabold text-white shadow-lg border-4 border-slate-300 z-10 cursor-pointer transition-all duration-300 hover:scale-105">立即抽獎</button>
     </div>
   </div>
 
@@ -165,3 +162,4 @@ function showResult(prize){
 
 </body>
 </html>
+
