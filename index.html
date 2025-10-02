@@ -8,15 +8,16 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
     body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif; }
+    
     @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      0%,100% { transform: translateY(0px) rotate(0deg); }
       50% { transform: translateY(-20px) rotate(180deg); }
     }
     .animate-float { animation: float 6s ease-in-out infinite; }
-    @keyframes rotate-lights { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .animate-rotate-lights { animation: rotate-lights 3s linear infinite; }
+
     @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     .animate-slide-up { animation: slideUp 0.6s ease; }
+
     .text-shadow { text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
   </style>
 </head>
@@ -32,8 +33,6 @@
   <!-- 轉盤容器 -->
   <div class="max-w-xl w-full bg-white/95 rounded-3xl shadow-2xl shadow-blue-200 p-6 sm:p-10 text-center relative z-10 backdrop-blur-sm border-2 border-blue-200/30">
 
-    <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-sky-400 to-slate-400 rounded-t-3xl"></div>
-
     <h1 class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent mb-2 tracking-wide">Simplism簡單保養</h1>
     <p class="inline-block text-lg md:text-xl text-slate-600 mt-4 mb-12 font-semibold bg-[#ECF5FC] px-8 py-2 rounded-full shadow-md">
       新客限定｜轉出你的專屬優惠
@@ -41,7 +40,7 @@
 
     <!-- 轉盤 -->
     <div class="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto mb-6">
-      <div id="wheel" class="absolute top-2 left-2 w-[calc(100%-16px)] h-[calc(100%-16px)] rounded-full bg-gradient-to-b from-slate-300 to-slate-400 p-1.5 shadow-lg shadow-slate-500/30 transition-transform duration-[4000ms] ease-[cubic-bezier(0.23,1,0.32,1)]"></div>
+      <div id="wheel" class="absolute inset-0 rounded-full bg-gradient-to-b from-slate-300 to-slate-400 p-1.5 shadow-lg shadow-slate-500/30 transition-transform duration-[4000ms] ease-[cubic-bezier(0.23,1,0.32,1)] origin-center"></div>
       <!-- 指針 -->
       <div class="absolute w-0 h-0 top-[-20px] left-1/2 -translate-x-1/2 border-l-[20px] border-r-[20px] border-t-[35px] border-l-transparent border-r-transparent border-t-slate-400 z-20 drop-shadow-lg"></div>
     </div>
@@ -57,31 +56,7 @@
     </div>
 
     <!-- 抽獎結果 -->
-    <div id="resultContainer" class="mt-6 hidden p-6 bg-[#6380A6] rounded-2xl text-white shadow-lg shadow-blue-500/40 border-2 border-white/50 animate-slide-up text-center">
-      <h2 id="resultText" class="text-xl font-bold mb-3"></h2>
-      <div class="relative">
-        <div id="copyCode" class="text-2xl font-black bg-white/25 py-3 px-6 rounded-lg my-3 tracking-widest cursor-pointer transition-all duration-300 hover:bg-white/40 hover:scale-105 border-2 border-white/50"></div>
-        <div id="copySuccess" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-md" style="display:none;">已複製！</div>
-      </div>
-      <p class="text-xs opacity-90">點擊文字框即可複製活動字串 (截圖保存以免忘記！)</p>
-      <p class="text-sm mt-1 mb-4">請至結帳頁面『活動字串』貼上使用</p>
-      <a href="https://www.simplism.com.tw/products/product/" target="_blank" class="inline-block bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105 hover:-translate-y-0.5">
-        立即前往購物
-      </a>
-    </div>
-
-    <!-- 活動規則 -->
-    <div class="mt-8 p-4 bg-blue-50/60 rounded-lg text-sm text-slate-700 leading-relaxed border border-blue-200">
-      <strong class="block mb-1 text-base font-bold">活動規則：</strong>
-      <ul class="list-disc list-inside text-left">
-        <li>每位新客戶限抽獎一次，單筆不限金額皆可使用。</li>
-        <li>活動字串有效期限至 2025年10月23日 (四) 23:59為止。</li>
-        <li>活動字串優惠僅限於Simplism簡單保養官網登入會員使用。</li>
-        <li>使用時須於結帳頁面『活動字串』欄位輸入享優惠好禮，逾期無效。</li>
-        <li>角質調理露20ml數量有限，贈完為止。</li>
-        <li>本活動辦法最終解釋權歸Simplis簡單保養所有。</li>
-      </ul>
-    </div>
+    <div id="resultContainer" class="mt-6 hidden"></div>
 
   </div>
 
@@ -95,72 +70,87 @@
     ];
 
     const wheel = document.getElementById('wheel');
-    let rotation = 0;
+    const resultContainer = document.getElementById('resultContainer');
+
+    // 產生扇區
+    PRIZES.forEach((prize,i)=>{
+      const div = document.createElement('div');
+      div.style.transform = `rotate(${i*72}deg)`;
+      div.style.background = prize.gradient;
+      div.className = 'absolute w-1/2 h-1/2 origin-bottom-right flex items-center justify-center font-bold text-xs sm:text-sm text-white text-shadow p-4 box-border border-r-2 border-b-2 border-white/40';
+      div.innerHTML = `<div class="transform -rotate-45 text-center leading-tight">${prize.name}</div>`;
+      wheel.appendChild(div);
+    });
+
     let isSpinning = false;
     let spunPrize = null;
 
-    const startButton = document.getElementById('startSpinButton');
-    const resultContainer = document.getElementById('resultContainer');
-    const resultText = document.getElementById('resultText');
-    const copyCodeDiv = document.getElementById('copyCode');
-    const copySuccess = document.getElementById('copySuccess');
-
-    function renderWheel() {
-      wheel.innerHTML = '';
-      PRIZES.forEach((prize,index)=>{
-        const div = document.createElement('div');
-        div.className = "absolute w-1/2 h-1/2 origin-bottom-right flex items-center justify-center font-bold text-xs sm:text-sm text-white text-shadow p-4 box-border border-r-2 border-b-2 border-white/40";
-        div.style.transform = `rotate(${index*72}deg)`;
-        div.style.background = prize.gradient;
-        div.innerHTML = `<div class="transform -rotate-45 text-center leading-tight">${prize.name}</div>`;
-        wheel.appendChild(div);
-      });
+    // 檢查 localStorage
+    const savedResult = localStorage.getItem('simplism_lottery_result');
+    if(savedResult){
+      spunPrize = JSON.parse(savedResult);
+      showResult(spunPrize);
     }
 
-    function getRandomPrize() {
-      const random = Math.random()*100;
-      let cumulative = 0;
-      for(const prize of PRIZES){
-        cumulative+=prize.probability;
-        if(random <= cumulative) return prize;
-      }
-      return PRIZES[0];
-    }
-
-    function spinWheel(){
+    // 轉盤事件
+    document.getElementById('startSpinButton').addEventListener('click', ()=>{
       if(isSpinning || spunPrize) return;
       isSpinning = true;
-      startButton.disabled = true;
 
-      const selectedPrize = getRandomPrize();
-      const baseVisualAngle = 225;
+      // 選獎
+      const random = Math.random()*100;
+      let cumulative = 0;
+      let selectedPrize = PRIZES[0];
+      for(const prize of PRIZES){
+        cumulative += prize.probability;
+        if(random<=cumulative){ selectedPrize=prize; break; }
+      }
+
+      // 旋轉計算
       const sectionAngle = 72;
-      const targetAngle = (270 - (baseVisualAngle + selectedPrize.sectionIndex*sectionAngle) + 360)%360;
-      const finalRotation = 2160 + targetAngle + (Math.random()*10-5);
-      rotation+=finalRotation;
-      wheel.style.transform = `rotate(${rotation}deg)`;
+      const baseVisualAngle = 225;
+      const targetAngle = baseVisualAngle + selectedPrize.sectionIndex * sectionAngle;
+      const pointerAngle = 270;
+      const rotationToTarget = (pointerAngle - targetAngle + 360)%360;
+      const baseRotation = 2160; // 6圈
+      const jitter = Math.random()*10-5;
+      const finalRotation = baseRotation + rotationToTarget + jitter;
+
+      wheel.style.transform = `rotate(${finalRotation}deg)`;
 
       setTimeout(()=>{
         spunPrize = selectedPrize;
         isSpinning = false;
-        resultContainer.style.display = 'block';
-        resultText.innerHTML = `恭喜獲得 ${selectedPrize.name.replace('<br>','')}！`;
-        copyCodeDiv.innerText = selectedPrize.code;
-      },4000);
-    }
-
-    copyCodeDiv.addEventListener('click',()=>{
-      if(spunPrize){
-        navigator.clipboard.writeText(spunPrize.code).then(()=>{
-          copySuccess.style.display = 'block';
-          setTimeout(()=>copySuccess.style.display='none',2000);
-        });
-      }
+        localStorage.setItem('simplism_lottery_result', JSON.stringify(selectedPrize));
+        showResult(selectedPrize);
+      }, 4000);
     });
 
-    startButton.addEventListener('click', spinWheel);
+    // 顯示結果
+    function showResult(prize){
+      resultContainer.innerHTML = `
+        <div class="mt-6 p-6 bg-[#6380A6] rounded-2xl text-white shadow-lg shadow-blue-500/40 border-2 border-white/50 animate-slide-up text-center">
+          <h2 class="text-xl font-bold mb-3">恭喜獲得 ${prize.name}！</h2>
+          <div class="relative">
+            <div id="copyCode" class="text-2xl font-black bg-white/25 py-3 px-6 rounded-lg my-3 tracking-widest cursor-pointer transition-all duration-300 hover:bg-white/40 hover:scale-105 border-2 border-white/50">${prize.code}</div>
+            <div id="copySuccess" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-md" style="display:none;">已複製！</div>
+          </div>
+          <p class="text-xs opacity-90">點擊文字框即可複製活動字串 (截圖保存以免忘記！)</p>
+          <p class="text-sm mt-1 mb-4">請至結帳頁面『活動字串』貼上使用</p>
+          <a href="https://www.simplism.com.tw/products/product/" target="_blank" class="inline-block bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105 hover:-translate-y-0.5">立即前往購物</a>
+        </div>
+      `;
+      resultContainer.classList.remove('hidden');
 
-    renderWheel();
+      document.getElementById('copyCode').addEventListener('click', ()=>{
+        navigator.clipboard.writeText(prize.code).then(()=>{
+          const tip = document.getElementById('copySuccess');
+          tip.style.display='block';
+          setTimeout(()=>{ tip.style.display='none'; }, 2000);
+        });
+      });
+    }
   </script>
+
 </body>
 </html>
