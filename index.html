@@ -46,12 +46,13 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
 <!-- 新增按鈕 -->
 <div class="w-full flex justify-center mt-4">
   <button
-    id="claimButton"
+    id="spinButton"
     class="w-full max-w-xs bg-gradient-to-r from-slate-600 to-slate-800 text-white font-bold text-xl py-4 px-8 rounded-full shadow-lg shadow-slate-500/40 transition-all duration-300 hover:-translate-y-1"
   >
     馬上領取新客專屬好康！
   </button>
 </div>
+
   
   <div id="resultContainer"></div>
 
@@ -125,14 +126,17 @@ document.getElementById('spinButton').addEventListener('click', ()=>{
 
   wheel.style.transform = `rotate(${finalRotation}deg)`;
 
-  setTimeout(()=>{
-    spunPrize = selectedPrize;
-    isSpinning = false;
-    localStorage.setItem('simplism_lottery_result', JSON.stringify(selectedPrize));
-    showResult(selectedPrize);
-  }, 4000);
-});
+setTimeout(()=>{
+  spunPrize = selectedPrize;
+  isSpinning = false;
+  localStorage.setItem('simplism_lottery_result', JSON.stringify(selectedPrize));
+  showResult(selectedPrize);
 
+  // 隱藏按鈕
+  const btn = document.getElementById('spinButton');
+  if(btn) btn.style.display = 'none';
+}, 4000);
+  
 // 顯示結果
 function showResult(prize){
   const container = document.getElementById('resultContainer');
@@ -159,3 +163,4 @@ function showResult(prize){
 </script>
 </body>
 </html>
+
