@@ -20,7 +20,7 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
 .animate-slide-up { animation: slideUp 0.6s ease; }
 </style>
 </head>
-<body class="bg-gradient-to-br from-slate-50 to-blue-100 min-h-screen flex justify-center relative overflow-hidden py-16">
+<body class="bg-gradient-to-br from-slate-50 to-blue-100 min-h-screen flex justify-center relative overflow-auto py-24 sm:py-32">
 
 <!-- 浮動光點背景 -->
 <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
@@ -29,7 +29,7 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
   <div class="absolute w-24 h-24 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full opacity-10 animate-float bottom-[15%] left-[20%]"></div>
 </div>
 
-<div class="w-full max-w-xl bg-white/95 rounded-3xl shadow-2xl shadow-blue-200 p-6 sm:p-10 text-center relative z-10 backdrop-blur-sm border-2 border-blue-200/30 flex flex-col items-center">
+<div class="w-full max-w-xl bg-white/95 rounded-3xl shadow-2xl shadow-blue-200 p-6 sm:p-10 text-center relative z-10 backdrop-blur-sm border-2 border-blue-200/30 flex flex-col items-center overflow-auto">
   <h1 class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent mb-2 tracking-wide">
     Simplism簡單保養
   </h1>
@@ -164,11 +164,6 @@ function showResult(){
 
   // 抽完後隱藏「馬上領取新客專屬好康！」按鈕
   document.getElementById('specialButton').style.display = 'none';
-
-  // 抽完後自動捲到活動規則
-  document.querySelector(".mt-12").scrollIntoView({
-    behavior: "smooth"
-  });
 }
 
 // 綁定按鈕
