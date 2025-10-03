@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simplism簡單保養-新客限定轉盤抽獎</title>
+<title>Simplism簡單保養 - 新人限定轉盤抽獎</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -146,14 +146,14 @@ function showResult(){
   const container=document.getElementById('resultContainer');
   if(!spunPrize) return;
   container.innerHTML=`
-    <div class="mt-8 mb-8 p-6 bg-[#6380A6] rounded-2xl text-white shadow-lg shadow-blue-500/40 border-2 border-white/50 animate-slide-up max-w-xl mx-auto">
+    <div class="mt-16 mb-16 p-6 bg-[#6380A6] rounded-2xl text-white shadow-lg shadow-blue-500/40 border-2 border-white/50 animate-slide-up max-w-xl mx-auto">
       <h2 class="text-xl font-bold mb-3">恭喜獲得 ${spunPrize.name.replace('<br>','')}！</h2>
       <div class="relative">
         <div id="copyCode" class="text-2xl font-black bg-white/25 py-3 px-6 rounded-lg my-3 tracking-widest cursor-pointer transition-all duration-300 hover:bg-white/40 hover:scale-105 border-2 border-white/50">
           ${spunPrize.code}
         </div>
       </div>
-      <p class="text-xs opacity-90">點擊文字框即可複製 (截圖保存以免忘記！)</p>
+      <p class="text-xs opacity-90">點擊文字框即可複製活動字串 ( 截圖保存以免忘記！ )</p>
       <p class="text-sm mt-1 mb-4">請至結帳頁面『活動字串』貼上使用</p>
       <a href="https://www.simplism.com.tw/products/product/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105 hover:-translate-y-0.5">
         立即前往購物
