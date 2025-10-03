@@ -161,6 +161,9 @@ function showResult(){
     </div>
   `;
   document.getElementById('copyCode').onclick=()=>{navigator.clipboard.writeText(spunPrize.code).then(()=>alert('已複製！'));};
+
+  // 🚀 抽完後隱藏「馬上領取新客專屬好康！」按鈕
+  document.getElementById('specialButton').style.display = 'none';
 }
 
 // 綁定按鈕
