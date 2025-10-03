@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simplism簡單保養 - 新人限定轉盤抽獎</title>
+<title>Simplism簡單保養-新客限定轉盤抽獎</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -20,7 +20,7 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
 .animate-slide-up { animation: slideUp 0.6s ease; }
 </style>
 </head>
-<body class="bg-gradient-to-br from-slate-50 to-blue-100 min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+<body class="bg-gradient-to-br from-slate-50 to-blue-100 min-h-screen flex justify-center relative overflow-hidden py-16">
 
 <!-- 浮動光點背景 -->
 <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
@@ -29,7 +29,7 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
   <div class="absolute w-24 h-24 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full opacity-10 animate-float bottom-[15%] left-[20%]"></div>
 </div>
 
-<div class="max-w-xl w-full bg-white/95 rounded-3xl shadow-2xl shadow-blue-200 p-6 sm:p-10 text-center relative z-10 backdrop-blur-sm border-2 border-blue-200/30">
+<div class="w-full max-w-xl bg-white/95 rounded-3xl shadow-2xl shadow-blue-200 p-6 sm:p-10 text-center relative z-10 backdrop-blur-sm border-2 border-blue-200/30 flex flex-col items-center">
   <h1 class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent mb-2 tracking-wide">
     Simplism簡單保養
   </h1>
@@ -62,10 +62,10 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
     馬上領取新客專屬好康！
   </button>
 
-  <div id="resultContainer"></div>
+  <div id="resultContainer" class="w-full"></div>
 
   <!-- 活動規則 -->
-  <div class="mt-8 p-4 bg-blue-50/60 rounded-lg text-sm text-slate-700 leading-relaxed border border-blue-200">
+  <div class="mt-12 p-6 bg-blue-50/60 rounded-lg text-sm text-slate-700 leading-relaxed border border-blue-200 w-full">
     <strong class="block mb-1 text-base font-bold">活動規則：</strong>
     <ul class="list-disc list-inside text-left">
       <li>每位新客戶限抽獎一次，單筆不限金額皆可使用。</li>
@@ -153,7 +153,7 @@ function showResult(){
           ${spunPrize.code}
         </div>
       </div>
-      <p class="text-xs opacity-90">點擊文字框即可複製活動字串 ( 截圖保存以免忘記！ )</p>
+      <p class="text-xs opacity-90">點擊文字框即可複製 (截圖保存以免忘記！)</p>
       <p class="text-sm mt-1 mb-4">請至結帳頁面『活動字串』貼上使用</p>
       <a href="https://www.simplism.com.tw/products/product/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105 hover:-translate-y-0.5">
         立即前往購物
@@ -166,7 +166,7 @@ function showResult(){
   document.getElementById('specialButton').style.display = 'none';
 
   // 抽完後自動捲到活動規則
-  document.querySelector(".mt-8").scrollIntoView({
+  document.querySelector(".mt-12").scrollIntoView({
     behavior: "smooth"
   });
 }
