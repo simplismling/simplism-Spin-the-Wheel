@@ -143,6 +143,8 @@ function spinWheel(){
     spunPrize = selected;
     localStorage.setItem('simplism_lottery_result', JSON.stringify(selected));
     showResult();
+    
+    // 抽完後更新中間按鈕文字
     spinBtn.innerText='您已抽過獎';
     isSpinning=false;
   },4000);
@@ -160,7 +162,7 @@ function showResult(){
           ${spunPrize.code}
         </div>
       </div>
-      <p class="text-xs opacity-90">點擊文字框即可複製(截圖保存以免忘記！)</p>
+      <p class="text-xs opacity-90">點擊文字框即可複製 (截圖保存以免忘記！)</p>
       <p class="text-sm mt-1 mb-4">請至結帳頁面『活動字串』貼上使用</p>
       <a href="https://www.simplism.com.tw/products/product/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105 hover:-translate-y-0.5">
         立即前往購物
@@ -183,4 +185,3 @@ if(spunPrize) showResult();
 
 </body>
 </html>
-
