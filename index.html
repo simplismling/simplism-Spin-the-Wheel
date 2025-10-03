@@ -171,13 +171,23 @@ function showResult(){
     </div>
   `;
 
-  // 確保折扣碼可點擊複製
+  // 確保折扣碼可點擊複製（兼容性高）
   const copyBtn = document.getElementById('copyCode');
   if(copyBtn){
     copyBtn.onclick = () => {
-      navigator.clipboard.writeText(spunPrize.code)
-        .then(() => alert('已複製活動字串！'))
-        .catch(() => alert('複製失敗，請手動選取文字複製'));
+      const range = document.createRange();
+      range.selectNode(copyBtn);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      try {
+        document.execCommand('copy');
+        selection.removeAllRanges();
+        alert('活動字串已成功複製！');
+      } catch (err) {
+        alert('活動字串已自動選取，請手動複製');
+      }
     };
   }
 
