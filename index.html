@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simplism簡單保養-新客限定轉盤抽獎</title>
+<title>Simplism簡單保養 - 新人限定轉盤抽獎</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -122,21 +122,28 @@ function getRandomPrize(){
 function spinWheel(){
   if(isSpinning||spunPrize) return;
   isSpinning=true;
-  const button=document.getElementById('spinButton');
-  button.innerText='抽獎中...';
-  const selected=getRandomPrize();
-  const sectionAngle=72;
-  const baseVisualAngle=225;
-  const targetAngle=(270-(baseVisualAngle+selected.sectionIndex*sectionAngle)+360)%360;
-  const baseRotation=2160;
-  const jitter=Math.random()*10-5;
-  rotation=baseRotation+targetAngle+jitter;
+
+  const spinBtn = document.getElementById('spinButton');
+  const specialBtn = document.getElementById('specialButton');
+
+  // 按鈕顯示抽獎中
+  spinBtn.innerText='抽獎中...';
+  specialBtn.innerText='抽獎中...';
+
+  const selected = getRandomPrize();
+  const sectionAngle = 72;
+  const baseVisualAngle = 225;
+  const targetAngle = (270-(baseVisualAngle+selected.sectionIndex*sectionAngle)+360)%360;
+  const baseRotation = 2160;
+  const jitter = Math.random()*10-5;
+  rotation = baseRotation + targetAngle + jitter;
   renderWheel();
+
   setTimeout(()=>{
-    spunPrize=selected;
-    localStorage.setItem('simplism_lottery_result',JSON.stringify(selected));
+    spunPrize = selected;
+    localStorage.setItem('simplism_lottery_result', JSON.stringify(selected));
     showResult();
-    button.innerText='您已抽過獎';
+    spinBtn.innerText='您已抽過獎';
     isSpinning=false;
   },4000);
 }
@@ -153,7 +160,7 @@ function showResult(){
           ${spunPrize.code}
         </div>
       </div>
-      <p class="text-xs opacity-90">點擊文字框即可複製 (截圖保存以免忘記！)</p>
+      <p class="text-xs opacity-90">點擊文字框即可複製活動字串 ( 截圖保存以免忘記！ )</p>
       <p class="text-sm mt-1 mb-4">請至結帳頁面『活動字串』貼上使用</p>
       <a href="https://www.simplism.com.tw/products/product/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105 hover:-translate-y-0.5">
         立即前往購物
@@ -167,8 +174,8 @@ function showResult(){
 }
 
 // 綁定按鈕
-document.getElementById('spinButton').onclick=spinWheel;
-document.getElementById('specialButton').onclick=spinWheel;
+document.getElementById('spinButton').onclick = spinWheel;
+document.getElementById('specialButton').onclick = spinWheel;
 
 // 如果已經抽過則顯示結果
 if(spunPrize) showResult();
