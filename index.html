@@ -164,6 +164,11 @@ function showResult(){
 
   // 🚀 抽完後隱藏「馬上領取新客專屬好康！」按鈕
   document.getElementById('specialButton').style.display = 'none';
+
+  // 🚀 抽完後自動捲到活動規則
+  document.querySelector(".mt-8").scrollIntoView({
+    behavior: "smooth"
+  });
 }
 
 // 綁定按鈕
